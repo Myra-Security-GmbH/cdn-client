@@ -1,0 +1,25 @@
+{
+  "name": "myra-security-gmbh/cdn-client",
+  "description": "Framework agnostic php implementation of the latest myracloud.com cdn api",
+  "keywords": ["myracloud", "cdn", "upload", "api"],
+  "homepage": "https://myracloud.com",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Matthias Bayer",
+      "email": "matthias.bayer@myracloud.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.5.0",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Myracloud\\CdnClient\\": "src/"
+    }
+  }
+}
