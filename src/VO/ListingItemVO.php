@@ -44,6 +44,7 @@ class ListingItemVO
 
     /**
      * ListingItemVO constructor.
+     *
      * @param int $type
      * @param string $path
      * @param string $basename
@@ -54,12 +55,12 @@ class ListingItemVO
      */
     public function __construct($type, $path, $basename, $size, $hash, \DateTime $modified, $contentType)
     {
-        $this->type = $type;
-        $this->path = $path;
-        $this->basename = $basename;
-        $this->size = $size;
-        $this->hash = $hash;
-        $this->modified = $modified;
+        $this->type        = $type;
+        $this->path        = $path;
+        $this->basename    = $basename;
+        $this->size        = $size;
+        $this->hash        = $hash;
+        $this->modified    = $modified;
         $this->contentType = $contentType;
     }
 

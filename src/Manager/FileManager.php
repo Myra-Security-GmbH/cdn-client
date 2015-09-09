@@ -13,6 +13,7 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * Class FileManager
+ *
  * @package Myracloud\CdnClient\Manager
  */
 class FileManager extends AbstractManager
@@ -28,7 +29,7 @@ class FileManager extends AbstractManager
     public function create($domain, $bucket, $path, $content, $unzip = false)
     {
         return $this->request('PUT', "upload/$domain/$bucket/" . ltrim($path, '/'), [
-            RequestOptions::BODY => $content,
+            RequestOptions::BODY    => $content,
             RequestOptions::HEADERS => [
                 'X-Myra-Unzip' => (int)$unzip,
             ],
