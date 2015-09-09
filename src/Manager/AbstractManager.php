@@ -29,12 +29,13 @@ abstract class AbstractManager
      * @param string $uri Full request URI
      * @param array $options Additional guzzle request options
      * @param bool $map If true the plain JSON response will be mapped to a ResultVO object
+     * @param bool $decode True to handle default json response
      * @throws UnexpectedResponseFormatException
      * @throws AccessDeniedException
      * @throws CdnException
      * @return ResultVO|array
      */
-    protected function request($method, $uri, array $options = [], $map = true)
+    protected function request($method, $uri, array $options = [], $map = true, $decode = true)
     {
         $options = array_merge(
             [
@@ -53,6 +54,10 @@ abstract class AbstractManager
 
         if ($response->getStatusCode() === 403) {
             throw new AccessDeniedException((string)$response->getBody());
+        }
+
+        if (!$decode) {
+            return $response->getBody();
         }
 
         $content = @json_decode($response->getBody(), true);

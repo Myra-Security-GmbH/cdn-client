@@ -5,6 +5,7 @@ namespace Myracloud\CdnClient\Manager;
 use GuzzleHttp\RequestOptions;
 use Myracloud\CdnClient\VO\BucketVO;
 use Myracloud\CdnClient\VO\FileDeleteQueryVO;
+use Myracloud\CdnClient\VO\FileQueryVO;
 use Myracloud\CdnClient\VO\ListingItemVO;
 use Myracloud\CdnClient\VO\ListingQueryVO;
 use Myracloud\CdnClient\VO\ListingResponseVO;
@@ -81,5 +82,20 @@ class FileManager extends AbstractManager
         return $this->request('DELETE', "delete/$domain", [
             RequestOptions::JSON => $delete,
         ]);
+    }
+
+    /**
+     * Fetches content of the file.
+     *
+     * @param $domain
+     * @param FileQueryVO $data
+     * @return string
+     */
+    public function fetch($domain, FileQueryVO $data)
+    {
+        $bucket = $data->getBucket();
+        $path   = ltrim($data->getPath(), '/');
+
+        return $this->request('GET', "fetch/${domain}/${bucket}/${path}", [], false, false);
     }
 }
