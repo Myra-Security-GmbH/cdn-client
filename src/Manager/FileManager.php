@@ -54,10 +54,10 @@ class FileManager extends AbstractManager
                 $file['type'],
                 $file['path'],
                 $file['basename'],
-                $file['size'],
-                $file['hash'],
-                new \DateTime($file['modified']),
-                $file['contentType']
+                (!empty($file['size']) ? $file['size'] : null),
+                (!empty($file['hash']) ? $file['hash'] : null),
+                (!empty($file['modified']) ? new \DateTime($file['modified']) : null),
+                (!empty($file['contentType']) ? $file['contentType'] : null)
             );
         }
 

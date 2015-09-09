@@ -53,7 +53,7 @@ class ListingItemVO
      * @param \DateTime $modified
      * @param string $contentType
      */
-    public function __construct($type, $path, $basename, $size, $hash, \DateTime $modified, $contentType)
+    public function __construct($type, $path, $basename, $size, $hash, \DateTime $modified = null, $contentType = null)
     {
         $this->type        = $type;
         $this->path        = $path;
