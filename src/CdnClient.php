@@ -51,6 +51,7 @@ class CdnClient
      * @param ClientInterface|null $client
      * @param BucketManager $bucketManager
      * @param FileManager $fileManager
+     * @param array $connectionConfig
      */
     public function __construct(
         $apiKey,
@@ -58,11 +59,13 @@ class CdnClient
         $url = 'https://myracloud-upload.local/v2/',
         ClientInterface $client = null,
         BucketManager $bucketManager = null,
-        FileManager $fileManager = null
-    ) {
+        FileManager $fileManager = null,
+        array $connectionConfig = []
+    )
+    {
         $this->apiKey = $apiKey;
         $this->secret = $secret;
-        $this->url = $url;
+        $this->url    = $url;
 
         if ($client === null) {
             $stack = new HandlerStack();
@@ -73,7 +76,7 @@ class CdnClient
                     function (RequestInterface $request) use ($secret, $apiKey) {
                         return $request->withHeader(
                             'Authorization',
-                            "MYRA ${apiKey}:".(
+                            "MYRA ${apiKey}:" . (
                             new Authentication\Signature(
                                 $request->getMethod(),
                                 $request->getRequestTarget(),
@@ -88,10 +91,13 @@ class CdnClient
             );
 
             $client = new Client(
-                [
-                    'base_uri' => $this->url,
-                    'handler' => $stack,
-                ]
+                array_merge(
+                    [
+                        'base_uri' => $this->url,
+                        'handler'  => $stack
+                    ],
+                    $connectionConfig
+                )
             );
         }
 
