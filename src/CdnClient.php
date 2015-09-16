@@ -51,7 +51,7 @@ class CdnClient
      * @param ClientInterface|null $client
      * @param BucketManager $bucketManager
      * @param FileManager $fileManager
-     * @param array $connectionConfig
+     * @param array $curlConfig
      */
     public function __construct(
         $apiKey,
@@ -60,7 +60,7 @@ class CdnClient
         ClientInterface $client = null,
         BucketManager $bucketManager = null,
         FileManager $fileManager = null,
-        array $connectionConfig = []
+        array $curlConfig = []
     )
     {
         $this->apiKey = $apiKey;
@@ -69,7 +69,7 @@ class CdnClient
 
         if ($client === null) {
             $stack = new HandlerStack();
-            $stack->setHandler(new CurlHandler());
+            $stack->setHandler(new CurlHandler(['curl' => $curlConfig]));
             $stack->push(Middleware::prepareBody());
             $stack->push(
                 Middleware::mapRequest(
@@ -91,13 +91,10 @@ class CdnClient
             );
 
             $client = new Client(
-                array_merge(
-                    [
-                        'base_uri' => $this->url,
-                        'handler'  => $stack
-                    ],
-                    $connectionConfig
-                )
+                [
+                    'base_uri' => $this->url,
+                    'handler'  => $stack
+                ]
             );
         }
 
