@@ -16,16 +16,12 @@ abstract class AbstractManager
      */
     protected $client;
 
-    /** @var  array */
-    protected $defaults = [];
-
     /**
      * @param ClientInterface $client
      */
-    public function __construct(ClientInterface $client, array $defaultOptions = [])
+    public function __construct(ClientInterface $client)
     {
-        $this->client   = $client;
-        $this->defaults = $defaultOptions;
+        $this->client = $client;
     }
 
     /**
@@ -53,7 +49,7 @@ abstract class AbstractManager
         $response = $this->client->request(
             $method,
             $uri,
-            $this->defaults + $options
+            $options
         );
 
         if ($response->getStatusCode() === 403) {
