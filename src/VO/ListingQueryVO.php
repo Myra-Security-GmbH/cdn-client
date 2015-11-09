@@ -35,6 +35,11 @@ class ListingQueryVO implements \JsonSerializable
     protected $type;
 
     /**
+     * @var string
+     */
+    protected $filter;
+
+    /**
      * ListingQueryVO constructor.
      * @param BucketVO|string $bucket
      * @param int $type
@@ -129,5 +134,21 @@ class ListingQueryVO implements \JsonSerializable
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * @param string $filter
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
     }
 }
