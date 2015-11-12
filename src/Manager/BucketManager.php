@@ -7,6 +7,7 @@ use Myracloud\CdnClient\Exception\BucketWaitTimeoutException;
 use Myracloud\CdnClient\VO\BucketDeleteQueryVO;
 use Myracloud\CdnClient\VO\BucketStatsVO;
 use Myracloud\CdnClient\VO\BucketVO;
+use Myracloud\CdnClient\VO\LinkBulkVO;
 use Myracloud\CdnClient\VO\LinkVO;
 use Myracloud\CdnClient\VO\ResultVO;
 
@@ -127,13 +128,28 @@ class BucketManager extends AbstractManager
     }
 
     /**
+     * @param string $domain
+     * @param LinkBulkVO $links
+     * @return array|ResultVO
+     */
+    public function bulkLink($domain, LinkBulkVO $links)
+    {
+        return $this->request(
+            'PUT',
+            "bucket/bulk/link/$domain",
+            [
+                RequestOptions::JSON => $links
+            ]
+        );
+    }
+
+    /**
      * @param $domain
      * @param LinkVO $link
      * @return ResultVO
      */
     public function unlink($domain, LinkVO $link)
     {
-
         return $this->request(
             'DELETE',
             "bucket/link/$domain",
