@@ -5,6 +5,7 @@ namespace Myracloud\CdnClient\Manager;
 use GuzzleHttp\RequestOptions;
 use Myracloud\CdnClient\Exception\BucketWaitTimeoutException;
 use Myracloud\CdnClient\VO\BucketDeleteQueryVO;
+use Myracloud\CdnClient\VO\BucketQueryVO;
 use Myracloud\CdnClient\VO\BucketStatsVO;
 use Myracloud\CdnClient\VO\BucketVO;
 use Myracloud\CdnClient\VO\LinkBulkVO;
@@ -158,6 +159,23 @@ class BucketManager extends AbstractManager
             ]
         );
     }
+
+    /**
+     * @param $domain
+     * @param BucketQueryVO $bucket
+     * @return array|ResultVO
+     */
+    public function unlinkAll($domain, BucketQueryVO $bucket)
+    {
+        return $this->request(
+            'PUT',
+            "bucket/unlinkall/$domain",
+            [
+                RequestOptions::JSON => $bucket,
+            ]
+        );
+    }
+
 
     /**
      * @param $domain
