@@ -1,10 +1,10 @@
-MYRACLOUD PHP CDN CLIENT
+Myra PHP CDN Client
 ======
 
 What is this?
 -------------
 
-This library is a framework agnostic php implementation of the latest [MYRACLOUD](https://myracloud.com/) CDN API.
+This library is a framework agnostic PHP implementation of the latest [Myra](https://myracloud.com/) CDN API.
 
 Installation
 ------------
