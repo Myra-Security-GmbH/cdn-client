@@ -11,10 +11,3 @@ Installation
 via Composer:
     
     composer require myra-security-gmbh/cdn-client
-
-Standalone usage
-----------------
-
-```php
-$coming = 'soon';
-```
