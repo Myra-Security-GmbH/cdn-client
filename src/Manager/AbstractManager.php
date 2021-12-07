@@ -37,14 +37,7 @@ abstract class AbstractManager
      */
     protected function request($method, $uri, array $options = [], $map = true, $decode = true)
     {
-        $options = array_merge(
-            [
-                RequestOptions::HEADERS => [
-                    'Date' => date('c'),
-                ],
-            ],
-            $options
-        );
+        $options  = $this->addDateToHeaders($options);
 
         $response = $this->client->request(
             $method,
@@ -81,5 +74,20 @@ abstract class AbstractManager
             isset($content['errorMessage']) ? $content['errorMessage'] : '',
             isset($content['result']) ? $content['result'] : null
         );
+    }
+
+    /**
+     * @param array $options
+     * @return array
+     */
+    private function addDateToHeaders(array $options): array
+    {
+        if (!array_key_exists(RequestOptions::HEADERS, $options)) {
+            $options[RequestOptions::HEADERS] = [];
+        }
+
+        $options[RequestOptions::HEADERS]['Date'] = date('c');
+
+        return $options;
     }
 }
